@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams} from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
+import { UserService } from '../../providers/user-service';
+import { AlertController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
 
 //import { UsersService } from '../../providers/users-service';
 /*
@@ -12,15 +15,17 @@ import { ModalController } from 'ionic-angular';
 @Component({
   selector: 'page-addpost',
   templateUrl: 'addpost.html',
+  providers: [ UserService ]
 })
 export class AddpostPage {
 
 	header: any;
 	description: any;
 	postedBy: any;
- 
+  myTime:any;
+  venue:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,public userService: UserService,public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
   }
 
  
@@ -34,6 +39,25 @@ export class AddpostPage {
 
   addPost(){
   	 console.log("header:::"+this.header+"description:::"+this.description+"postedBy:::"+this.postedBy);
-  	
+     var dateU = new Date(this.myTime).toUTCString();
+     console.log(dateU);
+     this.userService.writePosts(this.header,this.description,this.postedBy,dateU,this.venue).then(data =>{
+        console.log("ADDED SUCCESSFULLY"+data);
+        this.navCtrl.pop();
+     },error => {
+        let alert = this.alertCtrl.create({
+          title: 'Something Went Wrong',
+          subTitle: error.message,
+          buttons: ['OK']
+        });
+        alert.present();
+      });
+
+      let loader = this.loadingCtrl.create({
+        // dismissOnPageChange : true,
+        content: "Please wait...",
+        duration: 3000
+      });
+      loader.present();
   }
 }

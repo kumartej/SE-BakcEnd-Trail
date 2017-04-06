@@ -23,16 +23,12 @@
 		   <ion-textarea rows="6" [(ngModel)]="description"></ion-textarea>
 		</ion-item>
   		<ion-item>
-	  		<ion-label>Date</ion-label>
-	  		<ion-datetime displayFormat="MMM DD, YYYY" min="2017" [(ngModel)]="myDate"></ion-datetime>
-  		</ion-item>
-  		<ion-item>
 			  <ion-label>Time</ion-label>
-			  <ion-datetime displayFormat="HH:mm"  [(ngModel)]="myTime"></ion-datetime>
+			  <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="myTime"></ion-datetime>
 		</ion-item>
 		<ion-item>
 		    <ion-label floating>Venue:</ion-label>
-		    <ion-input type="text" [(ngModel)]="header" ></ion-input>
+		    <ion-input type="text" [(ngModel)]="venue" ></ion-input>
 		</ion-item>
 		<ion-item>
 		    <ion-label floating>Posted By</ion-label>
